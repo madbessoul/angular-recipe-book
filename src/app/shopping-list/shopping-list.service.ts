@@ -3,8 +3,8 @@ import {Subject} from 'rxjs/subject';
 
 export class ShoppingListService {
 
-  ingredientsChanged = new Subject<Ingredient[]>();
-  startedEditingIngredient = new Subject<number>();
+  IngredientsChanged = new Subject<Ingredient[]>();
+  StartedEditingIngredient = new Subject<number>();
 
   private aIngredients: Ingredient[] = [
     new Ingredient('Apples', 3),
@@ -18,13 +18,13 @@ export class ShoppingListService {
     for (const ing of this.aIngredients) {
       if (ingredient.name === ing.name) {
         ing.amount = ing.amount + ingredient.amount;
-        this.ingredientsChanged.next(this.aIngredients.slice());
+        this.IngredientsChanged.next(this.aIngredients.slice());
         bFound = true;
       }
     }
     if (!bFound) {
       this.aIngredients.push(ingredient);
-      this.ingredientsChanged.next(this.aIngredients.slice());
+      this.IngredientsChanged.next(this.aIngredients.slice());
     }
   }
 
@@ -38,12 +38,12 @@ export class ShoppingListService {
 
   updateIngredient(index: number, ingredient: Ingredient)  {
     this.aIngredients[index] = ingredient;
-    this.ingredientsChanged.next(this.aIngredients.slice());
+    this.IngredientsChanged.next(this.aIngredients.slice());
   }
 
   deleteIngredient(index: number)  {
     this.aIngredients.splice(index, 1);
-    this.ingredientsChanged.next(this.aIngredients.slice());
+    this.IngredientsChanged.next(this.aIngredients.slice());
   }
 
   // Load ingredient for editing in the Shopping List

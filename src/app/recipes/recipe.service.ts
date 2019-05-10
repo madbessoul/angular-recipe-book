@@ -2,11 +2,13 @@ import {Recipe} from './recipe.model';
 import {Ingredient} from '../shared/ingredient.model';
 import {Injectable} from '@angular/core';
 import {ShoppingListService} from '../shopping-list/shopping-list.service';
+import {Subject} from 'rxjs/subject';
 
 
 @Injectable()
 export class RecipeService {
 
+  recipesChanged = new Subject<Recipe[]>();
   private recipes: Recipe[] = [
     new Recipe(
       'Mac and Chesse 1',
@@ -38,17 +40,36 @@ export class RecipeService {
       ]
     )];
 
-    constructor(private shoppingListService: ShoppingListService) { }
+  constructor(private shoppingListService: ShoppingListService) { }
 
-    getRecipes()  {
-      return this.recipes.slice();
-    }
+  getRecipes()  {
+    return this.recipes.slice();
+  }
 
-    getRecipeById(index: number) {
-      return this.recipes.slice()[index];
-    }
+  getRecipeById(index: number) {
+    return this.recipes.slice()[index];
+  }
 
-    AddIngredientsToShoppingList(ingredients: Ingredient[])  {
-      this.shoppingListService.addIngredients(ingredients);
-    }
+  addRecipe(recipe: Recipe) {
+    this.recipes.push(recipe);
+    this.recipesChanged.next(this.recipes);
+  }
+
+  updateRecipe(index: number, newRecipe: Recipe)  {
+    this.recipes[index] = newRecipe;
+    this.recipesChanged.next(this.recipes);
+  }
+
+  addIngredientsToShoppingList(ingredients: Ingredient[])  {
+    this.shoppingListService.addIngredients(ingredients);
+  }
+
+  deleteRecipe(index: number)  {
+    this.recipes.splice(index, 1);
+    this.recipesChanged.next(this.recipes);
+  }
+
+  // getNumberOfRecipes()  {
+  //   return this.recipes.length;
+  // }
 }
