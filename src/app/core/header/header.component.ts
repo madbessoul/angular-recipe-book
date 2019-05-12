@@ -17,7 +17,7 @@ export class HeaderComponent implements OnInit {
 
 
   constructor(private dataStorage: DataStorageService,
-              private authService: AuthService) { }
+              public authService: AuthService) { }
 
   ngOnInit() {
   }

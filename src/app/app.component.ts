@@ -11,7 +11,6 @@ import 'firebase/auth';
 export class AppComponent implements OnInit{
 
   title = 'Recipe Book';
-  loadedFeature = 'recipe';
 
   ngOnInit()  {
     firebase.initializeApp({
@@ -19,10 +18,4 @@ export class AppComponent implements OnInit{
       authDomain: 'angular-recipe-book-c29d7.firebaseapp.com'
     });
   }
-
-  onNavigate(feature: string)  {
-    this.loadedFeature = feature;
-  }
-
-
 }
