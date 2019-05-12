@@ -3,6 +3,7 @@ import { Recipe } from '../recipe.model';
 import {ActivatedRoute, Router} from '@angular/router';
 import {RecipeService} from '../recipe.service';
 import {Subscription} from 'rxjs';
+import {DataStorageService} from '../../shared/data-storage.service';
 
 
 @Component({
@@ -18,7 +19,8 @@ export class RecipeListComponent implements OnInit, OnDestroy {
 
   constructor(private recipeService: RecipeService,
               private router: Router,
-              private route: ActivatedRoute) {
+              private route: ActivatedRoute,
+              private dataService: DataStorageService) {
   }
 
   ngOnInit() {
@@ -29,6 +31,7 @@ export class RecipeListComponent implements OnInit, OnDestroy {
           console.log(this.recipes);
         }
       );
+    // this.dataService.fetchData();
     this.recipes = this.recipeService.getRecipes();
   }
 
